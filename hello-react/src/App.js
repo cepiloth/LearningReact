@@ -5,9 +5,10 @@ class App extends Component {
   render() {
 
     return (
-      <MyComponet></MyComponet>
-    );
+      <MyComponet name="React" age={4}/>
+      );
   }
 }
+
 
 export default App;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './App.css'
 
 class App extends Component {
   render() {
@@ -16,13 +17,17 @@ class App extends Component {
     return (
       // 부모가 있어야한다. h1, h2 두개의 태그를 사용하려면 div tag 로 감싸줘야한다.
       // Virtual DOM 이라고 한다.
-      <div>
+      <div className="my-div">
         <h1>리액트 안녕!</h1>
         <h2>{text}</h2>
         {
           condition && '보여주세요'
         }
-        <div style={style}></div>
+        <div 
+          style={style}>
+        </div>
+        // 여기 쓰는 건 그대로 렌더링됩니다.
+        /* 여기에선 주석 못 써요 */
       </div>
     );
   }

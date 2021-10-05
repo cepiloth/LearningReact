@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import EventPractice from './EventPractice'; // EventPractice 를 불러옵니다.
+import ValidationSample from './ValidationSample';
 
 class App extends Component {
   render() {
 
     return (
-      <EventPractice></EventPractice>
+      <ValidationSample />
       );
   }
 }

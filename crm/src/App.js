@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Customer from './components/Customer';
 
-const customer = [
+const customers = [
 {
   'id': 1,
   'image' : 'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202110/05/5c1cef2f-2b0e-4901-b52e-583170963bd0.jpg',
@@ -31,8 +31,22 @@ const customer = [
 
 function App() {
   return (
+    <div>
     {
+      customers.map( c => {
+        return (
+          <Customer 
+            id={c.id}
+            image={c.image}
+            name={c.name}
+            birthday={c.birthday}
+            gender={c.gender}
+            job={c.job}
+          />
+        );
+      })
     }
+    </div>
   );
 }
 

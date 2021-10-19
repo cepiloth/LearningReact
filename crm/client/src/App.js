@@ -41,11 +41,7 @@ class App extends Component {
 
   // 비동기적으로 데이터를 가져오기 때문에 map 함수를 호출 할 수 없다.
   callApi = async () => {
-    const response = await fetch('/api/customers', {
-      headers: {
-      'Accept': 'application/json'
-      }
-    });
+    const response = await fetch('/api/customers');
     const body = await response.json();
     return body;
   }

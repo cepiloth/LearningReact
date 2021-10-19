@@ -32,10 +32,26 @@ app.get('/api/customers', (req, res) => {
         {
           id: 3,
           image: "https://placeimg.com/64/64/3",
-          name: "이제동",
-          birthday: "289208",
+          name: "Gon",
+          birthday: "880313",
           gender: "남자",
-          job: " 대학생",
+          job: "유튜버",
+        },
+        {
+            id: 4,
+            image: "https://placeimg.com/64/64/4",
+            name: "Bruce",
+            birthday: "930111",
+            gender: "남자",
+            job: "프로게이머",
+        },
+        {
+            id: 5,
+            image: "https://placeimg.com/64/64/5",
+            name: "Larry",
+            birthday: "910103",
+            gender: "남자",
+            job: "삼국지",
         },
       ]);
 });

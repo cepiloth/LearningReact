@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from "./logo.svg";
 import "./App.css";
 import Customer from './components/Customer'
 import Papar from "@material-ui/core/Paper";
@@ -8,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
@@ -19,37 +19,42 @@ const styles = (theme) => ({
   table: {
     minWidth: 1080,
   },
+  progress: {
+    margin: theme.spacing(2)
+  }
 });
-
-const customers = [
-  {
-    id: 1,
-    image: "https://placeimg.com/64/64/1",
-    name: "홍길동",
-    birthday: "989861",
-    gender: "남자",
-    job: " 대학생",
-  },
-  {
-    id: 2,
-    image: "https://placeimg.com/64/64/2",
-    name: "홍광표",
-    birthday: "283901",
-    gender: "남자",
-    job: " 대학생",
-  },
-  {
-    id: 3,
-    image: "https://placeimg.com/64/64/3",
-    name: "이제동",
-    birthday: "289208",
-    gender: "남자",
-    job: " 대학생",
-  },
-];
 
 class App extends Component {
   
+  state = {
+    customers: "",
+    completed: 0
+  }
+
+  // component 가 사용 준비가 됬을때
+  componentDidMount() {
+    this.timer = setInterval(this.progress, 20);
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
+
+  // 비동기적으로 데이터를 가져오기 때문에 map 함수를 호출 할 수 없다.
+  callApi = async () => {
+    const response = await fetch('/api/customers', {
+      headers: {
+      'Accept': 'application/json'
+      }
+    });
+    const body = await response.json();
+    return body;
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    this.setState({completed: completed >= 100 ? 0 : completed + 1})
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -67,20 +72,15 @@ class App extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {
-              customers.map((c) => {
-                return (
-              <Customer
-                id={c.id}
-                image={c.image}
-                name={c.name}
-                birthday={c.birthday}
-                gender={c.gender}
-                job={c.job}
-              />
-                )
-              })
-            }
+          { 
+            this.state.customers ? this.state.customers.map((c) => { return (<Customer id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/>)
+            }) : 
+            <TableRow>
+              <TableCell colSpan="6" align="center">
+                <CircularProgress className={classes.progress} variant="determinate" value={this.state.complated} />
+              </TableCell>
+            </TableRow>
+          }
           </TableBody>
         </Table>
       </Papar>
